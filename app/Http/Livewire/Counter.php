@@ -23,4 +23,9 @@ class Counter extends Component
     {
         $this->count--;
     }
+
+    public function resetCounter()
+    {
+        $this->count = 0;
+    }
 }
