@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>laravle-livewire</title>
 
-    <link rel="stylesheet" href="{{ assets('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- font -->
     <link href="https://fonts.googleapis.com/css/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,12 @@
 </head>
 <body>
 
-    <livewire:counter />
+
+    {{-- <livewire:counter /> --}}
+    <div class="w-7/12 mt-10 mx-auto rounded p-2">
+        <livewire:comments />
+        
+    </div>
     
 
 
