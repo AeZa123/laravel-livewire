@@ -10,11 +10,35 @@ class Comments extends Component
 {
 
     public $comments;
+
     public $newComment ;
+
+    //กำหนด rules สำหรับ validate
+    public $rules = [
+        'newComment' => 'required|min:5|max:128'
+    ];
+
+    //กำหนดข้อความ validate
+    protected $messages = [
+        'newComment.required' => 'This :attribute cannot be empty.',
+        'newComment.min' => 'This :attribute must longer than :min character',
+        'newComment.max' => 'This :attribute must less than :max character',
+    ];
+
+
+    //แสดง validate แบบ realtime
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
+
+
 
     public function addComment()
     {
 
+        $this->validate();
 
         if($this->newComment == ''){
             return;

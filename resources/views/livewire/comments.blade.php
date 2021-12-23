@@ -2,12 +2,15 @@
     <h1 class="text-3xl">Comments</h1>
 
     <form wire:submit.prevent='addComment' class="flex mt-4">
-        <input wire:model.defer='newComment' type="text" class="w-full p-2 my-2 mr-2 border rounded shadow" placeholder="What's in your mind.">
+        <input wire:model.debounce.500ms='newComment' type="text" class="w-full p-2 my-2 mr-2 border rounded shadow" placeholder="What's in your mind.">
         <div class="py-2">
             <button type="submit" class="w-20 p-2 text-white bg-blue-500 rounded shadow">Add</button>
         </div>
     </form>
 
+    @error('newComment')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
     
     @foreach ($comments as $comment)
         <div class="p-3 my-4 border rounded shadow">
