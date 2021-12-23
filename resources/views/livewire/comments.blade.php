@@ -1,6 +1,21 @@
 <div>
     <h1 class="text-3xl">Comments</h1>
 
+    <div>
+        @if (session()->has('message_add'))
+            <div class="p-3 my-4 text-green-800 bg-green-300 rounded shadow-sm">
+                {{session('message_add')}}
+            </div>
+        @endif
+    </div>
+    <div>
+        @if (session()->has('message_delete'))
+            <div class="p-3 my-4 text-red-800 bg-red-300 rounded shadow-sm">
+                {{session('message_delete')}}
+            </div>
+        @endif
+    </div>
+
     <form wire:submit.prevent='addComment' class="flex mt-4">
         <input wire:model.debounce.500ms='newComment' type="text" class="w-full p-2 my-2 mr-2 border rounded shadow" placeholder="What's in your mind.">
         <div class="py-2">
@@ -27,5 +42,7 @@
             </p>
         </div>
     @endforeach
+
+    {{ $comments->links() }}
    
 </div>

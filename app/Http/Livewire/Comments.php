@@ -5,11 +5,13 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Carbon\Carbon;
 use App\Models\Comment;
+use Livewire\WithPagination;
 
 class Comments extends Component
 {
+    use WithPagination;
 
-    public $comments;
+    //public $comments;
 
     public $newComment ;
 
@@ -51,7 +53,7 @@ class Comments extends Component
                 ]
             );
 
-            $this->comments->prepend($createdComment);
+            //$this->comments->prepend($createdComment);
 
     //     //array_unshift คือการนำข้อมูลใหม่สุดอยู่หน้าสุด
     //    array_unshift(
@@ -64,6 +66,8 @@ class Comments extends Component
 
         $this->newComment = '';
 
+        session()->flash('message_add', 'Comment successfully added.');
+
         
     }
 
@@ -73,13 +77,18 @@ class Comments extends Component
         $comment = Comment::find($id);
         $comment->delete();
 
-        $this->comments = $this->comments->except($id);
+        //$this->comments = $this->comments->except($id);
+
+        session()->flash('message_delete', 'Comment successfully deleted.');
     }
 
 
     public function render()
     {
-        return view('livewire.comments');
+
+        return view('livewire.comments', [
+            'comments' => Comment::latest()->paginate(5)
+        ]);
     }
 
 
@@ -87,9 +96,10 @@ class Comments extends Component
     //method for ...
     public function mount()
     {
-        $inittialComments = Comment::latest()->get();
+       // $inittialComments = Comment::latest()->get();
+       // $inittialComments = Comment::latest()->paginate(5);
 
-        $this->comments = $inittialComments;
+       // $this->comments = $inittialComments;
     }
 
 
