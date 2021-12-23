@@ -67,6 +67,15 @@ class Comments extends Component
         
     }
 
+    public function remove($id)
+    {
+        //dd($id);
+        $comment = Comment::find($id);
+        $comment->delete();
+
+        $this->comments = $this->comments->except($id);
+    }
+
 
     public function render()
     {
