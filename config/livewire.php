@@ -54,7 +54,8 @@ return [
     |
     */
 
-    'asset_url' => null,
+    //'asset_url' => null,
+    'asset_url' => config('app.url').'/public',
 
     /*
     |--------------------------------------------------------------------------

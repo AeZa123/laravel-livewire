@@ -12,6 +12,10 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //'livewire/message/counter',
+        'livewire/message/counter',
+        'livewire/message/comments',
+        'livewire/upload-file',
+        'livewire/preview-file/*'
+
     ];
 }

@@ -16,6 +16,17 @@
         @endif
     </div>
 
+    @if ($photo)
+        <img src="{{ $photo->temporaryUrl() }}" class="mt-4" alt="">
+        <div wire:loading wire:target="addComment">Uploading...</div>
+        
+    @endif
+
+    <input type="file" wire:model="photo" class="my-4" name="photo" id="upload{{ $iteration }}">
+    @error('photo')
+        <p class="text-sm text-red-600">{{ $message }}</p>
+    @enderror
+
     <form wire:submit.prevent='addComment' class="flex mt-4">
         <input wire:model.debounce.500ms='newComment' type="text" class="w-full p-2 my-2 mr-2 border rounded shadow" placeholder="What's in your mind.">
         <div class="py-2">

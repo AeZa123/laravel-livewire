@@ -5,26 +5,33 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Carbon\Carbon;
 use App\Models\Comment;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class Comments extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
     //public $comments;
+    public $photo;
+    public $iteration;
 
     public $newComment ;
 
     //กำหนด rules สำหรับ validate
     public $rules = [
-        'newComment' => 'required|min:5|max:128'
+        'newComment' => 'required|min:5|max:128',
+        'photo' => 'image|max:2048',
     ];
 
     //กำหนดข้อความ validate
     protected $messages = [
         'newComment.required' => 'This :attribute cannot be empty.',
-        'newComment.min' => 'This :attribute must longer than :min character',
-        'newComment.max' => 'This :attribute must less than :max character',
+        'newComment.min' => 'This :attribute must longer than :min character.',
+        'newComment.max' => 'This :attribute must less than :max character.',
+        'photo.image' => 'This :attribute must be image only.',
+        'photo.max' => 'This :attribute must less than :max bytes size.'
     ];
 
 
@@ -41,17 +48,23 @@ class Comments extends Component
     {
 
         $this->validate();
-
+        
+        
         if($this->newComment == ''){
             return;
         }
-
+        
         $createdComment = Comment::create(
                 [
                     'body' => $this->newComment,
                     'user_id' => '8'
                 ]
-            );
+        );
+
+        // เช็คว่ามีไฟล์ภาพเข้ามาหรือไม่
+        if($this->photo){
+            $this->photo->store('image/comments', 'public');
+        }
 
             //$this->comments->prepend($createdComment);
 
@@ -65,6 +78,8 @@ class Comments extends Component
     //     );
 
         $this->newComment = '';
+        $this->photo = null;
+        $this->iteration++;
 
         session()->flash('message_add', 'Comment successfully added.');
 

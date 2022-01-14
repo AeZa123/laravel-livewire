@@ -22,6 +22,8 @@
     {{-- <livewire:counter /> --}}
     <div class="w-7/12 mt-10 mx-auto rounded p-2">
         <livewire:comments />
+        <livewire:counter />
+        
         
     </div>
     
